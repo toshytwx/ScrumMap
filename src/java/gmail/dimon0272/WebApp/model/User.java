@@ -1,6 +1,7 @@
 package gmail.dimon0272.WebApp.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by User on 01.03.2017.
@@ -20,6 +21,10 @@ public class User {
 
     @Transient
     private String confirmPassword;
+
+    @OneToMany
+    @Column
+    private List<Duty> userListOfDutes;
 
     public Long getId() {
         return id;

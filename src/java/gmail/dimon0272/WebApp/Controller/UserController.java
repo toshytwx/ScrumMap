@@ -1,8 +1,13 @@
 package gmail.dimon0272.WebApp.Controller;
 
+import gmail.dimon0272.WebApp.actions.AddDutyAction;
+import gmail.dimon0272.WebApp.dao.DutyDao;
+import gmail.dimon0272.WebApp.model.Duty;
 import gmail.dimon0272.WebApp.model.User;
 import gmail.dimon0272.WebApp.service.SecurityService;
 import gmail.dimon0272.WebApp.service.UserService;
+import gmail.dimon0272.WebApp.tools.DateConverter;
+import gmail.dimon0272.WebApp.tools.DurationConverter;
 import gmail.dimon0272.WebApp.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,12 +16,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Date;
+
+import static com.sun.xml.internal.ws.api.message.Packet.Status.Request;
 
 /**
  * Created by User on 02.03.2017.
  */
 @Controller
 public class UserController {
+
+
     @Autowired
     private UserService userService;
 
@@ -66,4 +78,6 @@ public class UserController {
     public String welcome(Model model){
         return "welcome";
     }
+
+
 }
