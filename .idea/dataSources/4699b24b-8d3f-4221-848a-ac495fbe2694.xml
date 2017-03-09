@@ -51,27 +51,41 @@
       <DataType>tinytext|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="19" parent="10" name="PRIMARY">
+    <column id="19" parent="10" name="user_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="20" parent="10" name="user_id">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="21" parent="10" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="20" parent="11" name="id">
+    <foreign-key id="22" parent="10" name="duties_ibfk_1">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>webapp</RefSchemaName>
+      <RefTableName>users</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="23" parent="11" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="21" parent="11" name="username">
+    <column id="24" parent="11" name="username">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="22" parent="11" name="password">
+    <column id="25" parent="11" name="password">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="23" parent="11" name="PRIMARY">
+    <key id="26" parent="11" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>

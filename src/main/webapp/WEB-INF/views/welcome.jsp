@@ -30,6 +30,28 @@
             <li role="presentation"><a href="#">Profile</a></li>
             <li role="presentation"><a href="#">Messages</a></li>
         </ul>
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Panel heading</div>
+                    <div class="panel-body">
+                        <p>...</p>
+                    </div>
+
+                    <!-- Table -->
+                    <table class="table">
+                        <c:forEach var="num" items="${list}">
+                            <tr>
+                                <td>${num.dutyName}</td>
+                                <td>${num.dutyDuration}</td>
+                                <td>${num.dutyDescription}</td>
+                                <td>${num.dutyStartDate}</td>
+                                <td>${num.dutyImportance}</td>
+                                <td>${num.dutyStatus}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -40,7 +62,7 @@
                     <div class="modal-body">
                         <form  method="POST" action="${contextPath}/addduty" class="form-signin">
                             <input name="dutyname" type="text" class="form-control" placeholder="Duty Name" autofocus="true"/>
-                            <input name="dutyduration" type="text" class="form-control" placeholder="Duty Duration"/>
+                            <input name="dutyduration" type="time" class="form-control" placeholder="Duty Duration"/>
                             <input name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date"/>
                             <input name="dutydescription" type="text" class="form-control" placeholder="Write some words"/>
                             <select name="dutyimportance">

@@ -1,6 +1,13 @@
 package gmail.dimon0272.WebApp.model;
 
+import gmail.dimon0272.WebApp.dao.DutyDao;
+import gmail.dimon0272.WebApp.service.DutyDaoImpl;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,9 +29,21 @@ public class User {
     @Transient
     private String confirmPassword;
 
-    @OneToMany
-    @Column
-    private List<Duty> userListOfDutes;
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Duty> userListOfDuties = new ArrayList<Duty>();
+
+    @Transient
+    @Autowired
+    DutyDao dutyDao;
+
+    public List<Duty> getUserListOfDuties(User user) {
+        return dutyDao.getUserDutyList(user);
+    }
+
+    public void setUserListOfDuties(List<Duty> userListOfDuties) {
+        this.userListOfDuties = userListOfDuties;
+    }
 
     public Long getId() {
         return id;
