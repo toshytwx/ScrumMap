@@ -14,5 +14,7 @@ public interface DutyService {
     void add (Duty duty);
     void delete (Duty duty);
     List<Duty> userDutyList(User user);
+    List<Duty> userDutyByStatus(User user, String status);
     Duty findByDutyId(Long id);
+    void updateDuty(Duty dutyToUpgrade);
 }

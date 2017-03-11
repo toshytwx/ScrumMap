@@ -36,7 +36,7 @@ public class Duty {
     @Column(name = "dutystatus")
     private String dutyStatus;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private User user;
 
     public User getUser() {

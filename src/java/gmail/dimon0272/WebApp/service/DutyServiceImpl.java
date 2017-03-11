@@ -32,7 +32,17 @@ public class DutyServiceImpl implements DutyService {
     }
 
     @Override
+    public List<Duty> userDutyByStatus(User user, String status) {
+        return dutyDao.getUserDutyByStatus(user, status);
+    }
+
+    @Override
     public Duty findByDutyId(Long id) {
-        return null;
+        return dutyDao.findByDutyId(id);
+    }
+
+    @Override
+    public void updateDuty(Duty dutyToUpgrade) {
+        dutyDao.updateDuty(dutyToUpgrade);
     }
 }

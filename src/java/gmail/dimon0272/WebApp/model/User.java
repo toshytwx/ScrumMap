@@ -30,7 +30,7 @@ public class User {
     private String confirmPassword;
 
     @LazyCollection(LazyCollectionOption.TRUE)
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private List<Duty> userListOfDuties = new ArrayList<Duty>();
 
     @Transient

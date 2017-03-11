@@ -27,8 +27,9 @@
         </h2>
         <ul class="nav nav-pills">
             <li role="presentation" class="active" data-toggle="modal" data-target="#myModal"><a href="#">Add new Duty</a></li>
-            <li role="presentation"><a href="#">Profile</a></li>
-            <li role="presentation"><a href="#">Messages</a></li>
+            <li role="presentation"><a href="${contextPath}/progressDuties">Duties in progress</a></li>
+            <li role="presentation"><a href="${contextPath}/doneDuties">Done duties</a></li>
+            <li role="presentation"><a href="${contextPath}/allDuties">All</a></li>
         </ul>
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
@@ -39,6 +40,7 @@
 
                     <!-- Table -->
                     <table class="table">
+                        <c:set var="dutyid" value="" />
                         <c:forEach var="num" items="${list}">
                             <tr>
                                 <td>${num.dutyName}</td>
@@ -47,6 +49,10 @@
                                 <td>${num.dutyStartDate}</td>
                                 <td>${num.dutyImportance}</td>
                                 <td>${num.dutyStatus}</td>
+                                <td role="presentation" class="active" data-toggle="modal" data-target="#Edit">
+                                    <c:set var="" />
+                                    <button onclick="${dutyid = num.id}" id="${num.id}" class="btn btn-lg btn-primary btn-block" type="submit">+Edit</button>
+                                </td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -66,13 +72,47 @@
                             <input name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date"/>
                             <input name="dutydescription" type="text" class="form-control" placeholder="Write some words"/>
                             <select name="dutyimportance">
-                                <option disabled>Select importance</option>
+                                <option selected disabled>Select importance</option>
                                 <option value="Important">Important duty</option>
                                 <option value="Non-important">Non-important duty</option>
                             </select>
                             <br />
                             <select name="dutystatus">
-                                <option disabled>Select Duty status</option>
+                                <option selected disabled>Select Duty status</option>
+                                <option value="inprogress">Duty in progress</option>
+                                <option value="done">Duty is done</option>
+                            </select>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Edit" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit Duty</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form  method="POST" action="${contextPath}/editduty/${dutyid}" class="form-signin">
+                            <input name="dutyname" type="text" class="form-control"  placeholder="Duty Name" autofocus="true"/>
+                            <input name="dutyduration" type="time" class="form-control" placeholder="Duty Duration"/>
+                            <input name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date"/>
+                            <input name="dutydescription" type="text" class="form-control" placeholder="Write some words"/>
+                            <select name="dutyimportance">
+                                <option selected disabled>Select importance</option>
+                                <option value="Important">Important duty</option>
+                                <option value="Non-important">Non-important duty</option>
+                            </select>
+                            <br />
+                            <select name="dutystatus">
+                                <option selected disabled>Select Duty status</option>
                                 <option value="inprogress">Duty in progress</option>
                                 <option value="done">Duty is done</option>
                             </select>

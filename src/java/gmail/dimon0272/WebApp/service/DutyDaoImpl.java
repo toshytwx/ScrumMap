@@ -33,7 +33,15 @@ public class DutyDaoImpl implements DutyDao {
 
     @Override
     public Duty findByDutyId(Long id) {
-        return null;
+        query = entityManager.createQuery("SELECT c FROM Duty c where c.id = :id", Duty.class);
+        query.setParameter("id", id);
+        return (Duty) query.getSingleResult();
+    }
+
+    @Transactional
+    @Override
+    public void updateDuty(Duty dutyToUpgrade) {
+        entityManager.merge(dutyToUpgrade);
     }
 
     @Transactional
@@ -53,4 +61,15 @@ public class DutyDaoImpl implements DutyDao {
             query.setParameter("user1", user.getId());
         return (List<Duty>) query.getResultList();
         }
+    @Override
+    public List<Duty> getUserDutyByStatus(User user, String status) {
+        List <Duty> list = getUserDutyList(user);
+        List <Duty> newList = new ArrayList<>();
+        for (Duty duty: list){
+            if(duty.getDutyStatus().equals(status)){
+                newList.add(duty);
+            }
+        }
+        return newList;
+    }
 }

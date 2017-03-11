@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,13 +66,40 @@ public class DutyController {
         List<Duty> dutyList = dutyService.userDutyList(user);
         dutyList.add(duty);
         user.setUserListOfDuties(dutyList);
-
-        return "welcome";
+        return "redirect:/welcome";
     }
 
-    @RequestMapping(value="/welcome", method = RequestMethod.GET)
+    @RequestMapping(value={"/welcome", "/allDuties"}, method = RequestMethod.GET)
     public String showDutyList(Model model){
         model.addAttribute("list",dutyService.userDutyList(userService.findByUsername(securityService.findLoggedInUsername())));
         return "welcome";
+    }
+    @RequestMapping(value="/doneDuties", method = RequestMethod.GET)
+    public String showDoneDutyList(Model model){
+        model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "done"));
+        return "welcome";
+    }
+    @RequestMapping(value="/progressDuties", method = RequestMethod.GET)
+    public String showInProgressDutyList(Model model){
+        model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "inprogress"));
+        return "welcome";
+    }
+    @RequestMapping(value="/editduty/{dutyid}", method = {RequestMethod.POST, RequestMethod.GET})
+    public String editDuty(Model model, @PathVariable("dutyid") long id,
+                           @RequestParam String dutyname,
+                           @RequestParam String dutyduration,
+                           @RequestParam String dutystartdate,
+                           @RequestParam String dutydescription,
+                           @RequestParam String dutyimportance,
+                           @RequestParam String dutystatus){
+        Duty dutyToUpgrade = dutyService.findByDutyId(id);
+        dutyToUpgrade.setDutyDescription(dutydescription);
+        dutyToUpgrade.setDutyDurationInMillis(DurationConverter.toDuration(dutyduration).toMillis());
+        dutyToUpgrade.setDutyImportance(dutyimportance);
+        dutyToUpgrade.setDutyName(dutyname);
+        dutyToUpgrade.setDutyStatus(dutystatus);
+        dutyToUpgrade.setDutyStartDate(DateConverter.convertStringToDate(dutystartdate));
+        dutyService.updateDuty(dutyToUpgrade);
+        return "redirect:/welcome";
     }
 }
