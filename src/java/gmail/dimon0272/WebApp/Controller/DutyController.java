@@ -84,15 +84,16 @@ public class DutyController {
         model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "inprogress"));
         return "welcome";
     }
-    @RequestMapping(value="/editduty/{dutyid}", method = {RequestMethod.POST, RequestMethod.GET})
-    public String editDuty(Model model, @PathVariable("dutyid") long id,
+    @RequestMapping(value="/editduty", method = {RequestMethod.POST, RequestMethod.GET})
+    public String editDuty(Model model,
+                           @RequestParam String dutyid,
                            @RequestParam String dutyname,
                            @RequestParam String dutyduration,
                            @RequestParam String dutystartdate,
                            @RequestParam String dutydescription,
                            @RequestParam String dutyimportance,
                            @RequestParam String dutystatus){
-        Duty dutyToUpgrade = dutyService.findByDutyId(id);
+        Duty dutyToUpgrade = dutyService.findByDutyId(Long.parseLong(dutyid));
         dutyToUpgrade.setDutyDescription(dutydescription);
         dutyToUpgrade.setDutyDurationInMillis(DurationConverter.toDuration(dutyduration).toMillis());
         dutyToUpgrade.setDutyImportance(dutyimportance);

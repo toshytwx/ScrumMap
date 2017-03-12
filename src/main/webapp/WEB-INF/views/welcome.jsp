@@ -31,27 +31,25 @@
             <li role="presentation"><a href="${contextPath}/doneDuties">Done duties</a></li>
             <li role="presentation"><a href="${contextPath}/allDuties">All</a></li>
         </ul>
+
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
                     <div class="panel-heading">Panel heading</div>
                     <div class="panel-body">
                         <p>...</p>
                     </div>
-
                     <!-- Table -->
                     <table class="table">
-                        <c:set var="dutyid" value="" />
                         <c:forEach var="num" items="${list}">
                             <tr>
-                                <td>${num.dutyName}</td>
-                                <td>${num.dutyDuration}</td>
-                                <td>${num.dutyDescription}</td>
-                                <td>${num.dutyStartDate}</td>
-                                <td>${num.dutyImportance}</td>
-                                <td>${num.dutyStatus}</td>
+                                <td><c:out  value=" ${num.dutyName}" /></td>
+                                <td><c:out  value=" ${num.dutyDuration}"/></td>
+                                <td><c:out  value=" ${num.dutyDescription}"/></td>
+                                <td><c:out  value=" ${num.dutyStartDate}"/></td>
+                                <td><c:out  value=" ${num.dutyImportance}"/></td>
+                                <td><c:out  value=" ${num.dutyStatus}"/></td>
                                 <td role="presentation" class="active" data-toggle="modal" data-target="#Edit">
-                                    <c:set var="" />
-                                    <button onclick="${dutyid = num.id}" id="${num.id}" class="btn btn-lg btn-primary btn-block" type="submit">+Edit</button>
+                                    <button  id="${num.id}" onclick="markActiveLink(this);" class="btn btn-lg btn-primary btn-block" type="submit">+Edit</button>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -100,7 +98,7 @@
                         <h4 class="modal-title">Edit Duty</h4>
                     </div>
                     <div class="modal-body">
-                        <form  method="POST" action="${contextPath}/editduty/${dutyid}" class="form-signin">
+                        <form  method="POST" action="${contextPath}/editduty" class="form-signin">
                             <input name="dutyname" type="text" class="form-control"  placeholder="Duty Name" autofocus="true"/>
                             <input name="dutyduration" type="time" class="form-control" placeholder="Duty Duration"/>
                             <input name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date"/>
@@ -117,6 +115,7 @@
                                 <option value="done">Duty is done</option>
                             </select>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <input name="dutyid" id="dutyid" value="" type="hidden"/>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
                         </form>
                     </div>
@@ -130,5 +129,6 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="${contextPath}/resources/js/onClick.js"></script>
 </body>
 </html>
