@@ -46,12 +46,14 @@ public class DutyDaoImpl implements DutyDao {
 
     @Transactional
     @Override
-    public void add(Duty duty) { entityManager.persist(duty); }
+    public void add(Duty duty) {
+        entityManager.merge(duty);
+    }
 
     @Transactional
     @Override
     public void delete(Duty duty) {
-        entityManager.remove(duty);
+        entityManager.remove(entityManager.contains(duty) ? duty : entityManager.merge(duty));
     }
 
 

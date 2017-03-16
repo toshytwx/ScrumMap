@@ -23,7 +23,7 @@ public class DutyServiceImpl implements DutyService {
 
     @Override
     public void delete(Duty duty) {
-
+        dutyDao.delete(duty);
     }
 
     @Override

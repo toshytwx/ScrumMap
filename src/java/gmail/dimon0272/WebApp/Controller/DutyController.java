@@ -103,4 +103,10 @@ public class DutyController {
         dutyService.updateDuty(dutyToUpgrade);
         return "redirect:/welcome";
     }
+    @RequestMapping(value="/deleteduty", method = RequestMethod.POST)
+    public String deleteDuty(Model model, @RequestParam String dutyid){
+        Duty dutyToDelete = dutyService.findByDutyId(Long.parseLong(dutyid));
+        dutyService.delete(dutyToDelete);
+        return "redirect:/welcome";
+    }
 }
