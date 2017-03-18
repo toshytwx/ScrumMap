@@ -119,7 +119,8 @@ button {
 }
 
 button, select {
-    text-transform: none
+    text-transform: none;
+    width: 268px;
 }
 
 button, html input[type=button], input[type=reset], input[type=submit] {

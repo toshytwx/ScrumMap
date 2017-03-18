@@ -3,13 +3,16 @@ package gmail.dimon0272.WebApp.tools;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
  * Created by User on 04.03.2017.
  */
 public class DateConverter {
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    public static final DateFormat OLD_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 
     public static  Date convertStringToDate(String stringDate){
         Date result = null;
@@ -20,4 +23,18 @@ public class DateConverter {
         }
         return result;
     }
+
+    public static Date convertToPattern(String stringDate){
+        Date date = null;
+        String result = null;
+        try {
+            date = OLD_DATE_FORMAT.parse(stringDate);
+            result = DATE_FORMAT.format(date);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        Date resultDate = convertStringToDate(result);
+        return resultDate;
+    }
+
 }

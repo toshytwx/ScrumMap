@@ -1,5 +1,7 @@
 package gmail.dimon0272.WebApp.model;
 
+import gmail.dimon0272.WebApp.tools.DateConverter;
+
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.time.Duration;
@@ -101,6 +103,7 @@ public class Duty {
     }
 
     public Date getDutyStartDate() {
+
         return dutyStartDate;
     }
 
@@ -130,5 +133,9 @@ public class Duty {
 
     public void setDutyStatus(String dutyStatus) {
         this.dutyStatus = dutyStatus;
+    }
+
+    public String getDateInStringFormat(){
+        return DateConverter.DATE_FORMAT.format(getDutyStartDate());
     }
 }

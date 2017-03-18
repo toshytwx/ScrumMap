@@ -3,6 +3,7 @@ package gmail.dimon0272.WebApp.service;
 import gmail.dimon0272.WebApp.dao.DutyDao;
 import gmail.dimon0272.WebApp.model.Duty;
 import gmail.dimon0272.WebApp.model.User;
+import gmail.dimon0272.WebApp.tools.DateConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -61,7 +62,7 @@ public class DutyDaoImpl implements DutyDao {
     public List<Duty> getUserDutyList(User user) {
         query = entityManager.createQuery("SELECT DISTINCT c FROM Duty c INNER JOIN c.user g WHERE g.id = :user1", Duty.class);
             query.setParameter("user1", user.getId());
-        return (List<Duty>) query.getResultList();
+        return processingDutyList((List<Duty>) query.getResultList());
         }
     @Override
     public List<Duty> getUserDutyByStatus(User user, String status) {
@@ -73,5 +74,13 @@ public class DutyDaoImpl implements DutyDao {
             }
         }
         return newList;
+    }
+
+    @Override
+    public List<Duty> processingDutyList(List<Duty> list) {
+        for (Duty duty: list) {
+            duty.setDutyStartDate(DateConverter.convertToPattern(duty.getDutyStartDate().toString()));
+        }
+        return list;
     }
 }

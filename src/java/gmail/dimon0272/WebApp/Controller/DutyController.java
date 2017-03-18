@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,12 +78,12 @@ public class DutyController {
     }
     @RequestMapping(value="/doneDuties", method = RequestMethod.GET)
     public String showDoneDutyList(Model model){
-        model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "done"));
+        model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "Done"));
         return "welcome";
     }
     @RequestMapping(value="/progressDuties", method = RequestMethod.GET)
     public String showInProgressDutyList(Model model){
-        model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "inprogress"));
+        model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "In progress"));
         return "welcome";
     }
     @RequestMapping(value="/editduty", method = {RequestMethod.POST, RequestMethod.GET})
@@ -107,6 +109,14 @@ public class DutyController {
     public String deleteDuty(Model model, @RequestParam String dutyid){
         Duty dutyToDelete = dutyService.findByDutyId(Long.parseLong(dutyid));
         dutyService.delete(dutyToDelete);
+        return "redirect:/welcome";
+    }
+
+    @RequestMapping(value = "/details", method = {RequestMethod.POST, RequestMethod.GET})
+    public String getDutyDetails(Model model, @RequestParam String dutyid){
+        List <Duty> duty = new ArrayList<>();
+        duty.add(dutyService.findByDutyId(Long.parseLong(dutyid)));
+        model.addAttribute("duty", duty.get(0).getDutyName());
         return "redirect:/welcome";
     }
 }

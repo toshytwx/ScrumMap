@@ -45,19 +45,19 @@
                                 <td id="${num.id}_dutyName"><c:out  value=" ${num.dutyName}" /></td>
                                 <td class="dutyDuration"><c:out  value=" ${num.dutyDuration}"/></td>
                                 <td id="${num.id}_dutyDescription"><c:out  value=" ${num.dutyDescription}"/></td>
-                                <td class="dutyStartDate"><c:out  value=" ${num.dutyStartDate}"/></td>
+                                <td class="dutyStartDate"><c:out  value=" ${num.dateInStringFormat}"/></td>
                                 <td class="dutyImportance"><c:out  value=" ${num.dutyImportance}"/></td>
                                 <td class="dutyStatus"><c:out  value=" ${num.dutyStatus}"/></td>
                                 <td role="presentation" class="active" data-toggle="modal" data-target="#Details">
-                                <button  id="${num.id}" onclick="markActiveLink(this);" class="btn btn-lg btn-primary btn-block btn_edit" type="submit">Details</button>
+                                    <button  id="${num.id}" onclick="markActiveLink(this);" class="btn btn-lg btn-primary btn-block" type="submit">Details</button>
                                 </td>
                                 <td role="presentation" class="active" data-toggle="modal" data-target="#Delete">
                                     <button  id="${num.id}" onclick="markActiveLink(this);" class="btn btn-lg btn-primary btn-block" type="submit">Delete</button>
                                 </td>
                                 <c:choose>
-                                    <c:when test="${num.dutyStatus ne 'done'}">
+                                    <c:when test="${num.dutyStatus ne 'Done'}">
                                         <td role="presentation" class="active" data-toggle="modal" data-target="#Edit">
-                                            <button  id="${num.id}" onclick="markActiveLink(this);fillInputs(${num.id})" class="btn btn-lg btn-primary btn-block" type="submit">+Edit</button>
+                                            <button  id="${num.id}" onclick="markActiveLink(this); fillInputs(${num.id})" class="btn btn-lg btn-primary btn-block" type="submit">+Edit</button>
                                         </td>
                                     </c:when>
                                     <c:otherwise>
@@ -80,20 +80,20 @@
                     </div>
                     <div class="modal-body">
                         <form  method="POST" action="${contextPath}/addduty" class="form-signin">
-                            <input name="dutyname" type="text" class="form-control" placeholder="Duty Name" autofocus="true"/>
-                            <input name="dutyduration" type="time" class="form-control" placeholder="Duty Duration"/>
-                            <input name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date"/>
-                            <input name="dutydescription" type="text" class="form-control" placeholder="Write some words"/>
-                            <select name="dutyimportance">
+                            <input required name="dutyname" type="text" class="form-control" placeholder="Duty Name" autofocus="true"/>
+                            <input required name="dutyduration" type="time" class="form-control" placeholder="Duty Duration"/>
+                            <input required name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date"/>
+                            <input required name="dutydescription" type="text" class="form-control" placeholder="Write some words"/>
+                            <select required name="dutyimportance">
                                 <option selected disabled>Select importance</option>
                                 <option value="Important">Important duty</option>
                                 <option value="Non-important">Non-important duty</option>
                             </select>
                             <br />
-                            <select name="dutystatus">
+                            <select required name="dutystatus">
                                 <option selected disabled>Select Duty status</option>
-                                <option value="inprogress">Duty in progress</option>
-                                <option value="done">Duty is done</option>
+                                <option value="In progress">Duty in progress</option>
+                                <option value="Done">Duty is done</option>
                             </select>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
@@ -114,20 +114,20 @@
                     </div>
                     <div class="modal-body">
                         <form  method="POST" action="${contextPath}/editduty" class="form-signin">
-                            <input name="dutyname" type="text" class="form-control"  placeholder="Duty Name" autofocus="true"/>
-                            <input name="dutyduration" type="time" class="form-control" placeholder="Duty Duration"/>
-                            <input name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date"/>
-                            <input name="dutydescription" type="text" class="form-control" placeholder="Write some words"/>
-                            <select name="dutyimportance">
+                            <input required name="dutyname" type="text" class="form-control"  placeholder="Duty Name" autofocus="true"/>
+                            <input required name="dutyduration" type="time" class="form-control" placeholder="Duty Duration"/>
+                            <input required name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date"/>
+                            <input required name="dutydescription" type="text" class="form-control" placeholder="Write some words"/>
+                            <select  name="dutyimportance">
                                 <option selected disabled>Select importance</option>
                                 <option value="Important">Important duty</option>
                                 <option value="Non-important">Non-important duty</option>
                             </select>
                             <br />
-                            <select name="dutystatus">
+                            <select required name="dutystatus">
                                 <option selected disabled>Select Duty status</option>
-                                <option value="inprogress">Duty in progress</option>
-                                <option value="done">Duty is done</option>
+                                <option value="In progress">Duty in progress</option>
+                                <option value="Done">Duty is done</option>
                             </select>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <input name="dutyid" id="dutyid" value="" type="hidden"/>
@@ -152,6 +152,28 @@
                             <h2>Are you sure you want to delete this duty?</h2>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <input name="dutyid" id="dutyidd" value="" type="hidden"/>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Details" role="document">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form  method="POST" action="${contextPath}/details" class="form-signin">
+                            <ul>
+                            <li><c:out value="${duty}"/></li>
+                            </ul>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <input name="dutyid" id="duutyid" value="" type="hidden"/>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
                         </form>
                     </div>

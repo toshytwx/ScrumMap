@@ -15,6 +15,7 @@ public interface DutyDao {
     void delete (Duty duty);
     List <Duty> getUserDutyList(User user);
     List <Duty> getUserDutyByStatus(User user, String status);
+    List <Duty> processingDutyList(List<Duty> duties);
     Duty findByDutyId(Long id);
     void updateDuty(Duty dutyToUpgrade);
 }
