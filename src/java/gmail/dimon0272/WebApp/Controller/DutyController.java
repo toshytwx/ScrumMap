@@ -112,11 +112,10 @@ public class DutyController {
         return "redirect:/welcome";
     }
 
-    @RequestMapping(value = "/details", method = {RequestMethod.POST, RequestMethod.GET})
-    public String getDutyDetails(Model model, @RequestParam String dutyid){
-        List <Duty> duty = new ArrayList<>();
-        duty.add(dutyService.findByDutyId(Long.parseLong(dutyid)));
-        model.addAttribute("duty", duty.get(0).getDutyName());
-        return "redirect:/welcome";
+    @RequestMapping(value = "/details/{dutyid}", method = {RequestMethod.POST, RequestMethod.GET})
+    public String getDutyDetails(Model model, @PathVariable(value ="dutyid") Long id){
+        model.addAttribute("dutyName", dutyService.findByDutyId(id).getDutyName());
+        model.addAttribute("dutyDescription", dutyService.findByDutyId(id).getDutyDescription());
+        return "dutyDetails";
     }
 }

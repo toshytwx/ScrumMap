@@ -48,8 +48,10 @@
                                 <td class="dutyStartDate"><c:out  value=" ${num.dateInStringFormat}"/></td>
                                 <td class="dutyImportance"><c:out  value=" ${num.dutyImportance}"/></td>
                                 <td class="dutyStatus"><c:out  value=" ${num.dutyStatus}"/></td>
-                                <td role="presentation" class="active" data-toggle="modal" data-target="#Details">
-                                    <button  id="${num.id}" onclick="markActiveLink(this);" class="btn btn-lg btn-primary btn-block" type="submit">Details</button>
+                                <td>
+                                    <form action="${contextPath}/details/${num.id}">
+                                        <input id="${num.id}" class="btn btn-lg btn-primary btn-block" onclick="markActiveLinkDetails(this)" type="submit" value="Details"/>
+                                    </form>
                                 </td>
                                 <td role="presentation" class="active" data-toggle="modal" data-target="#Delete">
                                     <button  id="${num.id}" onclick="markActiveLink(this);" class="btn btn-lg btn-primary btn-block" type="submit">Delete</button>
@@ -152,28 +154,7 @@
                             <h2>Are you sure you want to delete this duty?</h2>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <input name="dutyid" id="dutyidd" value="" type="hidden"/>
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="Details" role="document">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Details</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form  method="POST" action="${contextPath}/details" class="form-signin">
-                            <ul>
-                            <li><c:out value="${duty}"/></li>
-                            </ul>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <input name="dutyid" id="duutyid" value="" type="hidden"/>
+                            <input name="dutyidd" id="duutyid" value="" type="hidden"/>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
                         </form>
                     </div>

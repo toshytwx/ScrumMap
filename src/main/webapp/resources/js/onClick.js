@@ -6,3 +6,6 @@ function markActiveLink(el) {
     document.getElementById('dutyidd').value = ($(el).attr("id"));
     document.getElementById('duutyid').value = ($(el).attr("id"));
 }
+function markActiveLinkDetails(el) {
+    document.getElementById('dd').value = ($(el).attr("id"));
+}
