@@ -12,6 +12,7 @@ public class DurationConverter {
 
     public static Duration toDuration(String stringDuration) {
         Duration result = null;
+
         if (stringDuration != null && !stringDuration.isEmpty()) {
             int parts = durationFormat.split(":").length;
             String[] fields = stringDuration.split(":", parts);
@@ -32,6 +33,6 @@ public class DurationConverter {
 
     public static String toString(Long durationInMilliseconds) {
         Duration duration = Duration.ofMillis(durationInMilliseconds);
-        return String.valueOf(duration.toHours() + ":" + duration.toMinutes() % 60);
+        return String.valueOf(duration.toHours() + ":" + duration.toMinutes() % 60 + "min.");
     }
 }

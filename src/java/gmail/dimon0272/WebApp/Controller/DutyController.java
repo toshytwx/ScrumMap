@@ -114,8 +114,13 @@ public class DutyController {
 
     @RequestMapping(value = "/details/{dutyid}", method = {RequestMethod.POST, RequestMethod.GET})
     public String getDutyDetails(Model model, @PathVariable(value ="dutyid") Long id){
-        model.addAttribute("dutyName", dutyService.findByDutyId(id).getDutyName());
-        model.addAttribute("dutyDescription", dutyService.findByDutyId(id).getDutyDescription());
+        Duty currentDuty = dutyService.findByDutyId(id);
+        model.addAttribute("dutyName",currentDuty.getDutyName());
+        model.addAttribute("dutyStartDate",currentDuty.getDateInStringFormat());
+        model.addAttribute("dutyDescription", currentDuty.getDutyDescription());
+        model.addAttribute("dutyImportance", currentDuty.getDutyImportance());
+        model.addAttribute("dutyStatus", currentDuty.getDutyStatus());
+        model.addAttribute("dutyDuration", DurationConverter.toString(currentDuty.getDutyDurationInMillis()));
         return "dutyDetails";
     }
 }

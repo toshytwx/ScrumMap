@@ -43,14 +43,10 @@
                         <c:forEach var="num" items="${list}">
                             <tr id="${num.id}" class="duty_note">
                                 <td id="${num.id}_dutyName"><c:out  value=" ${num.dutyName}" /></td>
-                                <td class="dutyDuration"><c:out  value=" ${num.dutyDuration}"/></td>
-                                <td id="${num.id}_dutyDescription"><c:out  value=" ${num.dutyDescription}"/></td>
-                                <td class="dutyStartDate"><c:out  value=" ${num.dateInStringFormat}"/></td>
-                                <td class="dutyImportance"><c:out  value=" ${num.dutyImportance}"/></td>
-                                <td class="dutyStatus"><c:out  value=" ${num.dutyStatus}"/></td>
+                                <input type="hidden" name="" id="${num.id}_dutyDescription" value="${num.dutyDescription}"/>
                                 <td>
                                     <form action="${contextPath}/details/${num.id}">
-                                        <input id="${num.id}" class="btn btn-lg btn-primary btn-block" onclick="markActiveLinkDetails(this)" type="submit" value="Details"/>
+                                        <input id="${num.id}" class="btn btn-lg btn-primary btn-block" type="submit" value="Details"/>
                                     </form>
                                 </td>
                                 <td role="presentation" class="active" data-toggle="modal" data-target="#Delete">
