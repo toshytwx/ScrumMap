@@ -55,7 +55,7 @@
                                 <c:choose>
                                     <c:when test="${num.dutyStatus ne 'Done'}">
                                         <td role="presentation" class="active" data-toggle="modal" data-target="#Edit">
-                                            <button  id="${num.id}" onclick="markActiveLink(this); fillInputs(${num.id})" class="btn btn-lg btn-primary btn-block" type="submit">+Edit</button>
+                                            <button id="${num.id}" onclick="markActiveLink(this); fillInputs(${num.id})" class="btn btn-lg btn-primary btn-block" type="submit">+Edit</button>
                                         </td>
                                     </c:when>
                                     <c:otherwise>
@@ -83,13 +83,11 @@
                             <input required name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date"/>
                             <input required name="dutydescription" type="text" class="form-control" placeholder="Write some words"/>
                             <select required name="dutyimportance">
-                                <option selected disabled>Select importance</option>
                                 <option value="Important">Important duty</option>
                                 <option value="Non-important">Non-important duty</option>
                             </select>
                             <br />
                             <select required name="dutystatus">
-                                <option selected disabled>Select Duty status</option>
                                 <option value="In progress">Duty in progress</option>
                                 <option value="Done">Duty is done</option>
                             </select>
@@ -103,7 +101,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="Edit" role="dialog">
+       <%-- <div class="modal fade" id="Edit" role="dialog">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -137,7 +135,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--%>
         <div class="modal fade" id="Delete" role="dialog">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">

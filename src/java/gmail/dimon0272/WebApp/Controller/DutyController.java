@@ -86,25 +86,7 @@ public class DutyController {
         model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "In progress"));
         return "welcome";
     }
-    @RequestMapping(value="/editduty", method = {RequestMethod.POST, RequestMethod.GET})
-    public String editDuty(Model model,
-                           @RequestParam String dutyid,
-                           @RequestParam String dutyname,
-                           @RequestParam String dutyduration,
-                           @RequestParam String dutystartdate,
-                           @RequestParam String dutydescription,
-                           @RequestParam String dutyimportance,
-                           @RequestParam String dutystatus){
-        Duty dutyToUpgrade = dutyService.findByDutyId(Long.parseLong(dutyid));
-        dutyToUpgrade.setDutyDescription(dutydescription);
-        dutyToUpgrade.setDutyDurationInMillis(DurationConverter.toDuration(dutyduration).toMillis());
-        dutyToUpgrade.setDutyImportance(dutyimportance);
-        dutyToUpgrade.setDutyName(dutyname);
-        dutyToUpgrade.setDutyStatus(dutystatus);
-        dutyToUpgrade.setDutyStartDate(DateConverter.convertStringToDate(dutystartdate));
-        dutyService.updateDuty(dutyToUpgrade);
-        return "redirect:/welcome";
-    }
+
     @RequestMapping(value="/deleteduty", method = RequestMethod.POST)
     public String deleteDuty(Model model, @RequestParam String dutyid){
         Duty dutyToDelete = dutyService.findByDutyId(Long.parseLong(dutyid));
@@ -115,6 +97,7 @@ public class DutyController {
     @RequestMapping(value = "/details/{dutyid}", method = {RequestMethod.POST, RequestMethod.GET})
     public String getDutyDetails(Model model, @PathVariable(value ="dutyid") Long id){
         Duty currentDuty = dutyService.findByDutyId(id);
+        model.addAttribute("dutyId", currentDuty.getId());
         model.addAttribute("dutyName",currentDuty.getDutyName());
         model.addAttribute("dutyStartDate",currentDuty.getDateInStringFormat());
         model.addAttribute("dutyDescription", currentDuty.getDutyDescription());
@@ -122,5 +105,25 @@ public class DutyController {
         model.addAttribute("dutyStatus", currentDuty.getDutyStatus());
         model.addAttribute("dutyDuration", DurationConverter.toString(currentDuty.getDutyDurationInMillis()));
         return "dutyDetails";
+    }
+
+    @RequestMapping(value="/details/{dutyId}/editduty", method = {RequestMethod.POST, RequestMethod.GET})
+    public String editDuty(Model model, @PathVariable(value ="dutyId") Long id,
+                           @RequestParam String dutyid,
+                           @RequestParam String dutyname,
+                           @RequestParam String dutyduration,
+                           @RequestParam String dutystartdate,
+                           @RequestParam String dutydescription,
+                           @RequestParam String dutyimportance,
+                           @RequestParam String dutystatus){
+        Duty dutyToUpgrade = dutyService.findByDutyId(id);
+        dutyToUpgrade.setDutyDescription(dutydescription);
+        dutyToUpgrade.setDutyDurationInMillis(DurationConverter.toDuration(dutyduration).toMillis());
+        dutyToUpgrade.setDutyImportance(dutyimportance);
+        dutyToUpgrade.setDutyName(dutyname);
+        dutyToUpgrade.setDutyStatus(dutystatus);
+        dutyToUpgrade.setDutyStartDate(DateConverter.convertStringToDate(dutystartdate));
+        dutyService.updateDuty(dutyToUpgrade);
+        return "redirect:/welcome";
     }
 }

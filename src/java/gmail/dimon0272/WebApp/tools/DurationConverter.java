@@ -33,6 +33,17 @@ public class DurationConverter {
 
     public static String toString(Long durationInMilliseconds) {
         Duration duration = Duration.ofMillis(durationInMilliseconds);
-        return String.valueOf(duration.toHours() + ":" + duration.toMinutes() % 60 + "min.");
+        String result;
+        if(String.valueOf(duration.toHours()).toCharArray().length < 2){
+            result = "0" + String.valueOf(duration.toHours() + ":" + duration.toMinutes() % 60);
+            if(String.valueOf(duration.toMinutes() % 60).toCharArray().length<=2) {
+                result = "0" + String.valueOf(duration.toHours() + ":" + "0" + duration.toMinutes() % 60);
+            }
+        } else if(String.valueOf(duration.toMinutes() % 60).toCharArray().length<=2){
+            result =  String.valueOf(duration.toHours() + ":" + "0" + duration.toMinutes() % 60);
+        }else{
+            result = String.valueOf(duration.toHours() + ":" + duration.toMinutes() % 60);
+        }
+        return result;
     }
 }
