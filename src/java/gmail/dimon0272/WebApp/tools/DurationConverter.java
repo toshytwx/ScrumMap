@@ -36,7 +36,7 @@ public class DurationConverter {
         String result;
         if(String.valueOf(duration.toHours()).toCharArray().length < 2){
             result = "0" + String.valueOf(duration.toHours() + ":" + duration.toMinutes() % 60);
-            if(String.valueOf(duration.toMinutes() % 60).toCharArray().length<=2) {
+            if(String.valueOf(duration.toMinutes() % 60).toCharArray().length<2) {
                 result = "0" + String.valueOf(duration.toHours() + ":" + "0" + duration.toMinutes() % 60);
             }
         } else if(String.valueOf(duration.toMinutes() % 60).toCharArray().length<=2){

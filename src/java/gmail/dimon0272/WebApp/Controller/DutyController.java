@@ -83,7 +83,7 @@ public class DutyController {
     }
     @RequestMapping(value="/progressDuties", method = RequestMethod.GET)
     public String showInProgressDutyList(Model model){
-        model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "In progress"));
+        model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "Performs"));
         return "welcome";
     }
 

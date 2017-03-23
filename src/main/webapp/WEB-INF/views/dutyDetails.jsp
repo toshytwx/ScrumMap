@@ -32,9 +32,11 @@
         </h2>
         </p>
         <hr>
-        <p style="text-align: center"><a class="btn btn-lg btn-success" href="${contextPath}/welcome" role="button">Home</a></p>
-        <p role="presentation" class="active" data-toggle="modal" data-target="#Edit">
-            <button id="${dutyId}" class="btn btn-lg btn-primary btn-block" type="submit">+Edit</button>
+        <p style="text-align: center">
+            <a class="btn btn-lg btn-success" href="${contextPath}/welcome" role="button">Home</a>
+            <span role="presentation" class="active" data-toggle="modal" data-target="#Edit">
+                <button id="${dutyId}" class="btn btn-lg btn-success" type="submit">+Edit</button>
+            </span>
         </p>
     </div>
 
@@ -51,7 +53,7 @@
                         <input required name="dutyduration" type="time" class="form-control" placeholder="Duty Duration" value="${dutyDuration}"/>
                         <input required name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date" value="${dutyStartDate}"/>
                         <input required name="dutydescription" type="text" class="form-control" placeholder="Write some words" value="${dutyDescription}"/>
-                        <select name="dutyimportance">
+                        <select class="mySelect" name="dutyimportance">
                             <c:choose>
                                 <c:when test="${dutyImportance ne 'Important'}">
                                     <option selected value="${dutyImportance}">Non-important duty</option>
@@ -64,7 +66,7 @@
                             </c:choose>
                         </select>
                         <br />
-                        <select required name="dutystatus">
+                        <select class="mySelect" required name="dutystatus">
                             <c:choose>
                                 <c:when test="${dutyStatus ne 'Done'}">
                                     <option selected value="${dutyStatus}">Duty in progress</option>
@@ -72,7 +74,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <option selected value="${dutyStatus}">Duty is Done</option>
-                                    <option value="In progress">Duty in progress</option>
+                                    <option value="Performs">Duty in progress</option>
                                 </c:otherwise>
                             </c:choose>
                         </select>

@@ -31,40 +31,45 @@
             <li role="presentation"><a href="${contextPath}/doneDuties">Done duties</a></li>
             <li role="presentation"><a href="${contextPath}/allDuties">All</a></li>
         </ul>
-
+        <br>
+        <div class="alert alert-success" role="alert">
+            <span><strong>Green</strong> colored duty means that you done it!</span>
+        </div>
+        <div class="alert alert-info" role="alert">
+            <span><strong>Blue</strong> colored duty means that you are performing it!</span>
+        </div>
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
-                    <div class="panel-heading">Panel heading</div>
-                    <div class="panel-body">
-                        <p>...</p>
+                    <div class="panel-heading">
+                        <p>
+                            Hi, ${pageContext.request.userPrincipal.name} there is a list of all your current duties. Here you can create, edit and delete your duties. Enjoy!
+                        </p>
                     </div>
                     <!-- Table -->
                     <table class="table">
-                        <c:forEach var="num" items="${list}">
-                            <tr id="${num.id}" class="duty_note">
-                                <td id="${num.id}_dutyName"><c:out  value=" ${num.dutyName}" /></td>
-                                <input type="hidden" name="" id="${num.id}_dutyDescription" value="${num.dutyDescription}"/>
-                                <td>
-                                    <form action="${contextPath}/details/${num.id}">
-                                        <input id="${num.id}" class="btn btn-lg btn-primary btn-block" type="submit" value="Details"/>
-                                    </form>
-                                </td>
-                                <td role="presentation" class="active" data-toggle="modal" data-target="#Delete">
-                                    <button  id="${num.id}" onclick="markActiveLink(this);" class="btn btn-lg btn-primary btn-block" type="submit">Delete</button>
-                                </td>
-                                <c:choose>
-                                    <c:when test="${num.dutyStatus ne 'Done'}">
-                                        <td role="presentation" class="active" data-toggle="modal" data-target="#Edit">
-                                            <button id="${num.id}" onclick="markActiveLink(this); fillInputs(${num.id})" class="btn btn-lg btn-primary btn-block" type="submit">+Edit</button>
-                                        </td>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td>
+                        <tr>
+                            <th>Title</th>
+                            <th>Day to start</th>
+                            <th>
 
-                                        </td>
-                                    </c:otherwise>
-                                </c:choose>
-                            </tr>
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                        <c:forEach var="num" items="${list}">
+                                <tr class="${num.dutyStatus}">
+                                    <td id="${num.id}_dutyName"><c:out  value=" ${num.dutyName}" /></td>
+                                    <td><c:out  value=" ${num.dateInStringFormat}" /></td>
+                                    <td>
+                                        <form action="${contextPath}/details/${num.id}">
+                                            <input id="${num.id}" class="btn btn-lg btn-primary btn-block" type="submit" value="Details"/>
+                                        </form>
+                                    </td>
+                                    <td role="presentation" class="active" data-toggle="modal" data-target="#Delete">
+                                        <button  id="${num.id}" onclick="markActiveLink(this);" class="btn btn-lg btn-primary btn-block" type="submit">Delete</button>
+                                    </td>
+                                </tr>
                         </c:forEach>
                     </table>
                 </div>
@@ -82,13 +87,13 @@
                             <input required name="dutyduration" type="time" class="form-control" placeholder="Duty Duration"/>
                             <input required name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date"/>
                             <input required name="dutydescription" type="text" class="form-control" placeholder="Write some words"/>
-                            <select required name="dutyimportance">
+                            <select class="mySelect" required name="dutyimportance">
                                 <option value="Important">Important duty</option>
                                 <option value="Non-important">Non-important duty</option>
                             </select>
                             <br />
-                            <select required name="dutystatus">
-                                <option value="In progress">Duty in progress</option>
+                            <select class="mySelect" required name="dutystatus">
+                                <option value="Performs">Duty in progress</option>
                                 <option value="Done">Duty is done</option>
                             </select>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -101,41 +106,6 @@
                 </div>
             </div>
         </div>
-       <%-- <div class="modal fade" id="Edit" role="dialog">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Edit Duty</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form  method="POST" action="${contextPath}/editduty" class="form-signin">
-                            <input required name="dutyname" type="text" class="form-control"  placeholder="Duty Name" autofocus="true"/>
-                            <input required name="dutyduration" type="time" class="form-control" placeholder="Duty Duration"/>
-                            <input required name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date"/>
-                            <input required name="dutydescription" type="text" class="form-control" placeholder="Write some words"/>
-                            <select  name="dutyimportance">
-                                <option selected disabled>Select importance</option>
-                                <option value="Important">Important duty</option>
-                                <option value="Non-important">Non-important duty</option>
-                            </select>
-                            <br />
-                            <select required name="dutystatus">
-                                <option selected disabled>Select Duty status</option>
-                                <option value="In progress">Duty in progress</option>
-                                <option value="Done">Duty is done</option>
-                            </select>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <input name="dutyid" id="dutyid" value="" type="hidden"/>
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>--%>
         <div class="modal fade" id="Delete" role="dialog">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -160,7 +130,6 @@
         </div>
     </c:if>
 </div>
-<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>--%>
 <script
         src="https://code.jquery.com/jquery-3.1.1.js"
         integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
