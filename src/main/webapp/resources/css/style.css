@@ -1,0 +1,39 @@
+td.mapsector-determining{
+    height: 100%;
+    width: 390px;
+    text-align: center;
+    border: 1px dashed gray;
+    border-bottom: none;
+    border-top: none;
+    background-color: #fcf8e3;
+}
+td.mapsector-done{
+    height: 100%;
+    width: 390px;
+    text-align: center;
+    border: 1px dashed gray;
+    border-bottom: none;
+    border-top: none;
+    background-color: #dff0d8;
+}
+td.mapsector-performing{
+    height: 100%;
+    width: 390px;
+    text-align: center;
+    border: 1px dashed gray;
+    border-bottom: none;
+    border-top: none;
+    background-color: #d9edf7;
+}
+.map-container{
+
+}
+ul.duty-list{
+    list-style-type: none;
+}
+div.duty-block{
+    width: 250px;
+    height: 45px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
