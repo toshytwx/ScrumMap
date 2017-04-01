@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,7 +76,7 @@ public class DutyDaoImpl implements DutyDao {
         }
         return newList;
     }
-
+    @Transactional
     @Override
     public List<Duty> processingDutyList(List<Duty> list) {
         for (Duty duty: list) {

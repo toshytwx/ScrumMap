@@ -51,7 +51,7 @@
                     <form  method="POST" action="${contextPath}/details/${dutyId}/editduty" class="form-signin">
                         <input required name="dutyname" type="text" class="form-control"  placeholder="Duty Name" autofocus="true" value="${dutyName}"/>
                         <input required name="dutyduration" type="time" class="form-control" placeholder="Duty Duration" value="${dutyDuration}"/>
-                        <input required name="dutystartdate" type="date" class="form-control" placeholder="Duty Start Date" value="${dutyStartDate}"/>
+                        <input required name="dutystartdate" type="datetime" class="form-control" placeholder="Duty Start Date" value="${dutyStartDate}"/>
                         <input required name="dutydescription" type="text" class="form-control" placeholder="Write some words" value="${dutyDescription}"/>
                         <select class="mySelect" name="dutyimportance">
                             <c:choose>
@@ -68,14 +68,30 @@
                         <br />
                         <select class="mySelect" required name="dutystatus">
                             <c:choose>
-                                <c:when test="${dutyStatus ne 'Done'}">
-                                    <option selected value="${dutyStatus}">Duty in progress</option>
-                                    <option value="Done">Duty is done</option>
+                                <c:when test="${dutyStatus eq 'Done'}">
+                                    <option selected value="${dutyStatus}">Duty is done</option>
+                                    <option value="Performs">Duty is performing</option>
+                                    <option value="Determining">Duty is determining</option>
+                                    <option value="Failed">Duty is failed</option>
                                 </c:when>
-                                <c:otherwise>
-                                    <option selected value="${dutyStatus}">Duty is Done</option>
-                                    <option value="Performs">Duty in progress</option>
-                                </c:otherwise>
+                                <c:when test="${dutyStatus eq 'Performs'}">
+                                    <option selected value="${dutyStatus}">Duty is performing</option>
+                                    <option value="Done">Duty is done</option>
+                                    <option value="Determining">Duty is determining</option>
+                                    <option value="Failed">Duty is failed</option>
+                                </c:when>
+                                <c:when test="${dutyStatus eq 'Determining'}">
+                                    <option selected value="${dutyStatus}">Duty is determining</option>
+                                    <option value="Done">Duty is done</option>
+                                    <option value="Performs">Duty is performing</option>
+                                    <option value="Failed">Duty is failed</option>
+                                </c:when>
+                                <c:when test="${dutyStatus eq 'Failed'}">
+                                    <option selected value="${dutyStatus}">Duty is failed</option>
+                                    <option value="Done">Duty is done</option>
+                                    <option value="Performs">Duty is performing</option>
+                                    <option value="Determining">Duty is determining</option>
+                                </c:when>
                             </c:choose>
                         </select>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

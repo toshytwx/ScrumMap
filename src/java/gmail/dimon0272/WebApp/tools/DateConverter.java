@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by User on 04.03.2017.
  */
 public class DateConverter {
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     public static final DateFormat OLD_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 
     public static  Date convertStringToDate(String stringDate){
@@ -37,4 +37,14 @@ public class DateConverter {
         return resultDate;
     }
 
+    public static Date convertToDateTime(String stringDate){
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        Date date = null;
+        try {
+            date = formatter.parse(stringDate);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        return date;
+    }
 }

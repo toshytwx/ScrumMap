@@ -10,7 +10,7 @@ CREATE TABLE duties(
   id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY,
   dutyname VARCHAR(255) NOT NULL,
   dutyduration BIGINT NOT NULL,
-  dutystartdate DATE NOT NULL,
+  dutystartdate DATETIME NOT NULL,
   dutydescription TEXT NOT NULL,
   dutyimportance TINYTEXT NOT NULL,
   dutystatus TINYTEXT NOT NULL,

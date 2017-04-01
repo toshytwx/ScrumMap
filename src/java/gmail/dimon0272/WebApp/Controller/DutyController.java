@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,7 +60,7 @@ public class DutyController {
                           @RequestParam String dutyimportance,
                           @RequestParam String dutystatus){
         Duty duty = new Duty(dutyname, DurationConverter.toDuration(dutyduration),
-                DateConverter.convertStringToDate(dutystartdate),
+                DateConverter.convertToDateTime(dutystartdate),
                 dutydescription,
                 dutyimportance,
                 dutystatus);
@@ -72,10 +73,19 @@ public class DutyController {
     }
 
     @RequestMapping(value={"/welcome", "/allDuties"}, method = RequestMethod.GET)
-    public String showDutyList(Model model){
-        model.addAttribute("list",dutyService.userDutyList(userService.findByUsername(securityService.findLoggedInUsername())));
+    public String showDutyList(Model model) {
+        List<Duty> list = dutyService.userDutyList(userService.findByUsername(securityService.findLoggedInUsername()));
+        for (Duty duty : list) {
+            if (duty.getDutyStatus().equals("Performs") &&
+                    (duty.getDutyStartDate().getTime() + duty.getDutyDurationInMillis()) < new Date().getTime()) {
+                duty.setDutyStatus("Failed");
+                dutyService.updateDuty(duty);
+            }
+        }
+        model.addAttribute("list", list);
         return "welcome";
     }
+
     @RequestMapping(value="/doneDuties", method = RequestMethod.GET)
     public String showDoneDutyList(Model model){
         model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "Done"));
@@ -86,7 +96,17 @@ public class DutyController {
         model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "Performs"));
         return "welcome";
     }
+    @RequestMapping(value="/failedDuties", method = RequestMethod.GET)
+    public String showFailedDutyList(Model model){
+        model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "Failed"));
+        return "welcome";
+    }
 
+    @RequestMapping(value="/determiningDuties", method = RequestMethod.GET)
+    public String showDeterminingDutyList(Model model){
+        model.addAttribute("list",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "Determining"));
+        return "welcome";
+    }
     @RequestMapping(value="/deleteduty", method = RequestMethod.POST)
     public String deleteDuty(Model model, @RequestParam String dutyid){
         Duty dutyToDelete = dutyService.findByDutyId(Long.parseLong(dutyid));
@@ -125,5 +145,12 @@ public class DutyController {
         dutyToUpgrade.setDutyStartDate(DateConverter.convertStringToDate(dutystartdate));
         dutyService.updateDuty(dutyToUpgrade);
         return "redirect:/welcome";
+    }
+
+    @RequestMapping(value="/map", method = RequestMethod.GET)
+    public String showMap(Model model){
+        model.addAttribute("determiningDutiesList",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "Determining"));
+        model.addAttribute("doneDutiesList",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "Done"));
+        return "map";
     }
 }

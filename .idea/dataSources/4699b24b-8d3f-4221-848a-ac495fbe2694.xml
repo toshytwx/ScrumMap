@@ -13,79 +13,93 @@
     <schema id="7" parent="1" name="prog-spring-mvc-demo"/>
     <schema id="8" parent="1" name="restaurant"/>
     <schema id="9" parent="1" name="sys"/>
-    <table id="10" parent="2" name="duties"/>
-    <table id="11" parent="2" name="users"/>
-    <column id="12" parent="10" name="id">
+    <table id="10" parent="2" name="123"/>
+    <table id="11" parent="2" name="duties"/>
+    <table id="12" parent="2" name="users"/>
+    <column id="13" parent="10" name="id123">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="14" parent="10" name="123col">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <key id="15" parent="10" name="PRIMARY">
+      <ColNames>id123</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="16" parent="11" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="13" parent="10" name="dutyname">
+    <column id="17" parent="11" name="dutyname">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="14" parent="10" name="dutyduration">
+    <column id="18" parent="11" name="dutyduration">
       <Position>3</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="15" parent="10" name="dutystartdate">
+    <column id="19" parent="11" name="dutystartdate">
       <Position>4</Position>
-      <DataType>date|0</DataType>
+      <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="16" parent="10" name="dutydescription">
+    <column id="20" parent="11" name="dutydescription">
       <Position>5</Position>
       <DataType>text|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="17" parent="10" name="dutyimportance">
+    <column id="21" parent="11" name="dutyimportance">
       <Position>6</Position>
       <DataType>tinytext|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="18" parent="10" name="dutystatus">
+    <column id="22" parent="11" name="dutystatus">
       <Position>7</Position>
       <DataType>tinytext|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="19" parent="10" name="user_id">
+    <column id="23" parent="11" name="user_id">
       <Position>8</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="20" parent="10" name="user_id">
+    <index id="24" parent="11" name="user_id">
       <ColNames>user_id</ColNames>
     </index>
-    <key id="21" parent="10" name="PRIMARY">
+    <key id="25" parent="11" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="22" parent="10" name="duties_ibfk_1">
+    <foreign-key id="26" parent="11" name="duties_ibfk_1">
       <ColNames>user_id</ColNames>
       <RefSchemaName>webapp</RefSchemaName>
       <RefTableName>users</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="23" parent="11" name="id">
+    <column id="27" parent="12" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="24" parent="11" name="username">
+    <column id="28" parent="12" name="username">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="25" parent="11" name="password">
+    <column id="29" parent="12" name="password">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="26" parent="11" name="PRIMARY">
+    <key id="30" parent="12" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
