@@ -151,6 +151,7 @@ public class DutyController {
     public String showMap(Model model){
         model.addAttribute("determiningDutiesList",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "Determining"));
         model.addAttribute("doneDutiesList",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "Done"));
+        model.addAttribute("performingDutiesList",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "Performs"));
         return "map";
     }
 }
