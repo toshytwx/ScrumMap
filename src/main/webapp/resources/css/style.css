@@ -28,8 +28,23 @@ td.mapsector-performing{
 ul.duty-list{
     list-style-type: none;
 }
-div.duty-block{
-    width: 250px;
+div.Determining{
+    text-align: center;
+    width: 90px;
+    height: 45px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+div.Performs{
+    text-align: center;
+    width: 90px;
+    height: 45px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+div.Done{
+    text-align: center;
+    width: 90px;
     height: 45px;
     border: 1px solid black;
     border-radius: 4px;

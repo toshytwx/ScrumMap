@@ -154,4 +154,29 @@ public class DutyController {
         model.addAttribute("performingDutiesList",dutyService.userDutyByStatus(userService.findByUsername(securityService.findLoggedInUsername()), "Performs"));
         return "map";
     }
+
+    @RequestMapping(value = "/changetodetermining", method = RequestMethod.POST)
+    public String changeDutyStatusToDetermining(Model model, @RequestParam String dutyid){
+        Duty dutyToUpgrade = dutyService.findByDutyId(Long.parseLong(dutyid));
+        dutyToUpgrade.setDutyStatus("Determining");
+        dutyService.updateDuty(dutyToUpgrade);
+        return "redirect:/map";
+    }
+
+    @RequestMapping(value = "/changetoperform", method = RequestMethod.POST)
+    public String changeDutyStatusToPerform(Model model, @RequestParam String dutyid){
+        Duty dutyToUpgrade = dutyService.findByDutyId(Long.parseLong(dutyid));
+        dutyToUpgrade.setDutyStatus("Performs");
+        dutyService.updateDuty(dutyToUpgrade);
+        return "redirect:/map";
+    }
+
+    @RequestMapping(value = "/changetodone", method = RequestMethod.POST)
+    public String changeDutyStatusToDone(Model model, @RequestParam String dutyid){
+        Duty dutyToUpgrade = dutyService.findByDutyId(Long.parseLong(dutyid));
+        dutyToUpgrade.setDutyStatus("Done");
+        dutyService.updateDuty(dutyToUpgrade);
+        return "redirect:/map";
+    }
+
 }

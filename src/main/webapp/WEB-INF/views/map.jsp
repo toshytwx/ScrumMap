@@ -22,7 +22,7 @@
                                 <c:forEach var="num" items="${determiningDutiesList}">
                                     <br>
                                     <li>
-                                        <div id="${num.id}" class="duty-block ui-widget ui-corner-all ui-state-error">
+                                        <div id="${num.id}" class="${num.dutyStatus} ui-widget ui-corner-all ui-state-error">
                                             <c:out value="${num.dutyName}"/>
                                         </div>
                                     </li>
@@ -43,7 +43,7 @@
                                 <c:forEach var="num" items="${performingDutiesList}">
                                     <br>
                                     <li>
-                                        <div  class="duty-block ui-widget ui-corner-all ui-state-error">
+                                        <div id="${num.id}" class="${num.dutyStatus} ui-widget ui-corner-all ui-state-error">
                                             <c:out value="${num.dutyName}"/>
                                         </div>
                                     </li>
@@ -64,7 +64,7 @@
                                 <c:forEach var="num" items="${doneDutiesList}">
                                     <br>
                                     <li>
-                                        <div class="duty-block ui-widget ui-corner-all ui-state-error">
+                                        <div id="${num.id}" class="${num.dutyStatus} ui-widget ui-corner-all ui-state-error">
                                             <c:out value="${num.dutyName}"/>
                                         </div>
                                     </li>
@@ -77,11 +77,68 @@
         </table>
     </div>
 
-    <!-- Modal error -->
-    <div id="error" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-        <div class="modal-dialog modal-sm" role="document">
+    <div class="modal fade" id="toDetermining" role="dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                ...
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change Duty status</h4>
+                </div>
+                <div class="modal-body">
+                    <form  method="POST" action="${contextPath}/changetodetermining" class="form-signin">
+                        <h2>Are you sure you want to change status of this duty to "Determining"?</h2>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input name="dutyid" class="dutyid" value="" type="hidden"/>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="toPerform" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change Duty status</h4>
+                </div>
+                <div class="modal-body">
+                    <form  method="POST" action="${contextPath}/changetoperform" class="form-signin">
+                        <h2>Are you sure you want to change status of this duty to "Performing"?</h2>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input name="dutyid" class="dutyid" value="" type="hidden"/>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="toDone" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change Duty status</h4>
+                </div>
+                <div class="modal-body">
+                    <form  method="POST" action="${contextPath}/changetodone" class="form-signin">
+                        <h2>Are you sure you want to change status of this duty to "Done"?</h2>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input name="dutyid" class="dutyid" value="" type="hidden"/>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -95,7 +152,15 @@
 
     <script type="text/javascript">
         $(function() {
-            $('.duty-block').draggable({
+            $('.Determining').draggable({
+                containment: "tr"
+                /* containment: [115,50,245,595]*/
+            })
+            $('.Performs').draggable({
+                containment: "tr"
+                /* containment: [115,50,245,595]*/
+            })
+            $('.Done').draggable({
                 containment: "tr"
                 /* containment: [115,50,245,595]*/
             })
@@ -103,14 +168,52 @@
     </script>
     <script type="text/javascript">
 
-            $('.duty-block').mouseup(function () {
+            $('.Determining').mouseup(function () {
                 var id = this.id;
-                if($('#'+id).offset().left >490.5){
-                    $('#error').modal('toggle');
+                if($('#' + id).offset().left >490.5 && $('#'+id).offset().left <867.5){
+                    $('input[name=dutyid]').val(id);
+                    $('#toPerform').modal('toggle');
+                }
+            });
+            $('.Determining').mouseup(function () {
+                var id = this.id;
+                if($('#'+id).offset().left > 867.5){
+                    $('input[name=dutyid]').val(id);
+                    $('#toDone').modal('toggle');
+                }
+            });
+            $('.Performs').mouseup(function () {
+                var id = this.id;
+                if(($(window).width() - ($('#'+id).offset().left + $('#'+id).outerWidth())) >= 865.5){
+                    $('input[name=dutyid]').val(id);
+                    $('#toDetermining').modal('toggle');
+                }
+            });
+            $('.Performs').mouseup(function () {
+                var id = this.id;
+                if($('#'+id).offset().left > 872.5){
+                    $('input[name=dutyid]').val(id);
+                    $('#toDone').modal('toggle');
+                }
+            });
+            $('.Done').mouseup(function () {
+                var id = this.id;
+                if(($(window).width() - ($('#'+id).offset().left + $('#'+id).outerWidth())) > ($(window).width() - ($('.mapsector-performing').offset().left + $('.mapsector-performing').outerWidth()))
+                    && $('#'+id).offset().left > $('.mapsector-performing').offset().left){
+                    $('input[name=dutyid]').val(id);
+                    $('#toPerform').modal('toggle');
+                }
+            });
+            $('.Done').mouseup(function () {
+                var id = this.id;
+                if(($(window).width() - ($('#'+id).offset().left + $('#'+id).outerWidth())) > ($(window).width() - ($('.mapsector-determining').offset().left + $('.mapsector-determining').outerWidth()))){
+                    $('input[name=dutyid]').val(id);
+                    $('#toDetermining').modal('toggle');
                 }
             });
 
     </script>
+
     <script type="text/javascript">
 
     </script>
