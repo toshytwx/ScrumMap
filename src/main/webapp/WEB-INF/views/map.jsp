@@ -10,12 +10,10 @@
     <div class="container">
         <table>
             <tr>
-                <div class="map-header">
-                            <span>
-                                Determining Duties
-                            </span>
-                </div>
                 <td class="mapsector-determining">
+                    <div class="map-header">
+                        <h3>Determining Duties</h3>
+                    </div>
                     <div class="map-container">
                         <div class="map-body">
                             <ul class="duty-list">
@@ -23,7 +21,7 @@
                                     <br>
                                     <li>
                                         <div id="${num.id}" class="${num.dutyStatus} ui-widget ui-corner-all ui-state-error">
-                                            <c:out value="${num.dutyName}"/>
+                                            <h4><c:out value="${num.dutyName}"/></h4>
                                         </div>
                                     </li>
                                 </c:forEach>
@@ -32,19 +30,17 @@
                     </div>
                 </td>
                 <td class="mapsector-performing">
+                    <div class="map-header">
+                        <h3>Performing Duties</h3>
+                    </div>
                     <div class="map-container">
-                        <div class="map-header">
-                            <span>
-                               Performing Duties
-                            </span>
-                        </div>
                         <div class="map-body">
                             <ul class="duty-list">
                                 <c:forEach var="num" items="${performingDutiesList}">
                                     <br>
                                     <li>
                                         <div id="${num.id}" class="${num.dutyStatus} ui-widget ui-corner-all ui-state-error">
-                                            <c:out value="${num.dutyName}"/>
+                                            <h4><c:out value="${num.dutyName}"/></h4>
                                         </div>
                                     </li>
                                 </c:forEach>
@@ -53,19 +49,17 @@
                     </div>
                 </td>
                 <td class="mapsector-done">
+                    <div class="map-header">
+                        <h3>Done Duties</h3>
+                    </div>
                     <div class="map-container">
-                        <div class="map-header">
-                            <span>
-                                Done Duties
-                            </span>
-                        </div>
                         <div class="map-body">
                             <ul class="duty-list">
                                 <c:forEach var="num" items="${doneDutiesList}">
                                     <br>
                                     <li>
                                         <div id="${num.id}" class="${num.dutyStatus} ui-widget ui-corner-all ui-state-error">
-                                            <c:out value="${num.dutyName}"/>
+                                           <h4><c:out value="${num.dutyName}"/></h4>
                                         </div>
                                     </li>
                                 </c:forEach>
@@ -75,6 +69,9 @@
                 </td>
             </tr>
         </table>
+        <div class="map-footer">
+            <a class="btn btn-lg btn-success" href="${contextPath}/welcome" role="button">Home</a>
+        </div>
     </div>
 
     <div class="modal fade" id="toDetermining" role="dialog">
@@ -149,73 +146,8 @@
             crossorigin="anonymous"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
     <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+    <script src="${contextPath}/resources/js/movingElements.js" type="text/javascript"></script>
+    <script src="${contextPath}/resources/js/mapMoving.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-        $(function() {
-            $('.Determining').draggable({
-                containment: "tr"
-                /* containment: [115,50,245,595]*/
-            })
-            $('.Performs').draggable({
-                containment: "tr"
-                /* containment: [115,50,245,595]*/
-            })
-            $('.Done').draggable({
-                containment: "tr"
-                /* containment: [115,50,245,595]*/
-            })
-        });
-    </script>
-    <script type="text/javascript">
-
-            $('.Determining').mouseup(function () {
-                var id = this.id;
-                if($('#' + id).offset().left >490.5 && $('#'+id).offset().left <867.5){
-                    $('input[name=dutyid]').val(id);
-                    $('#toPerform').modal('toggle');
-                }
-            });
-            $('.Determining').mouseup(function () {
-                var id = this.id;
-                if($('#'+id).offset().left > 867.5){
-                    $('input[name=dutyid]').val(id);
-                    $('#toDone').modal('toggle');
-                }
-            });
-            $('.Performs').mouseup(function () {
-                var id = this.id;
-                if(($(window).width() - ($('#'+id).offset().left + $('#'+id).outerWidth())) >= 865.5){
-                    $('input[name=dutyid]').val(id);
-                    $('#toDetermining').modal('toggle');
-                }
-            });
-            $('.Performs').mouseup(function () {
-                var id = this.id;
-                if($('#'+id).offset().left > 872.5){
-                    $('input[name=dutyid]').val(id);
-                    $('#toDone').modal('toggle');
-                }
-            });
-            $('.Done').mouseup(function () {
-                var id = this.id;
-                if(($(window).width() - ($('#'+id).offset().left + $('#'+id).outerWidth())) > ($(window).width() - ($('.mapsector-performing').offset().left + $('.mapsector-performing').outerWidth()))
-                    && $('#'+id).offset().left > $('.mapsector-performing').offset().left){
-                    $('input[name=dutyid]').val(id);
-                    $('#toPerform').modal('toggle');
-                }
-            });
-            $('.Done').mouseup(function () {
-                var id = this.id;
-                if(($(window).width() - ($('#'+id).offset().left + $('#'+id).outerWidth())) > ($(window).width() - ($('.mapsector-determining').offset().left + $('.mapsector-determining').outerWidth()))){
-                    $('input[name=dutyid]').val(id);
-                    $('#toDetermining').modal('toggle');
-                }
-            });
-
-    </script>
-
-    <script type="text/javascript">
-
-    </script>
 </body>
 </html>

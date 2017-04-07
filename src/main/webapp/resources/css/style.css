@@ -1,26 +1,30 @@
 td.mapsector-determining{
-    height: 100%;
+    height: 580px;
     width: 390px;
     border: 1px dashed gray;
     border-bottom: none;
     border-top: none;
     background-color: #fcf8e3;
+    vertical-align:top;
+    text-align: center;
 }
 td.mapsector-done{
-    height: 100%;
+    height: 580px;
     width: 390px;
     border: 1px dashed gray;
     border-bottom: none;
     border-top: none;
     background-color: #dff0d8;
+    vertical-align:top;
 }
 td.mapsector-performing{
-    height: 590px;
+    height: 580px;
     width: 390px;
     border: 1px dashed gray;
     border-bottom: none;
     border-top: none;
     background-color: #d9edf7;
+    vertical-align:top;
 }
 .map-container{
 
@@ -28,24 +32,62 @@ td.mapsector-performing{
 ul.duty-list{
     list-style-type: none;
 }
+div.Determining h4{
+    top: 25%;
+    left: 15%;
+    position: absolute;
+}
+div.Done h4{
+    top: 25%;
+    left: 15%;
+    position: absolute;
+}
+div.Performs h4{
+    top: 25%;
+    left: 15%;
+    position: absolute;
+}
 div.Determining{
+    cursor: pointer;
+    position: relative;
+    background-image: url("../images/sticker.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     text-align: center;
-    width: 90px;
-    height: 45px;
-    border: 1px solid black;
-    border-radius: 4px;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
 }
 div.Performs{
+    cursor: pointer;
+    position: relative;
+    background-image: url("../images/stickerblue.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     text-align: center;
-    width: 90px;
-    height: 45px;
-    border: 1px solid black;
-    border-radius: 4px;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
 }
 div.Done{
+    cursor: pointer;
+    position: relative;
+    background-image: url("../images/stickergreen.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     text-align: center;
-    width: 90px;
-    height: 45px;
-    border: 1px solid black;
-    border-radius: 4px;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+}
+.map-header{
+    position: static;
+    text-align: center;
+}
+.map-footer{
+    text-align: center;
+    margin-top: 5px;
 }
