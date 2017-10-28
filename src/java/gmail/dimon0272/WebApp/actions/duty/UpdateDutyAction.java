@@ -1,7 +1,7 @@
 package gmail.dimon0272.WebApp.actions.duty;
 
 import gmail.dimon0272.WebApp.model.Duty;
-import gmail.dimon0272.WebApp.service.DutyService;
+import gmail.dimon0272.WebApp.service.duty.DutyService;
 
 /**
  * Created by User on 28.10.2017.

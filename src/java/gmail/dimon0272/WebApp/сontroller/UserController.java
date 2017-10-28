@@ -2,8 +2,8 @@ package gmail.dimon0272.WebApp.сontroller;
 
 import gmail.dimon0272.WebApp.actions.user.AddUserAction;
 import gmail.dimon0272.WebApp.model.User;
-import gmail.dimon0272.WebApp.service.SecurityService;
-import gmail.dimon0272.WebApp.service.UserService;
+import gmail.dimon0272.WebApp.service.security.SecurityService;
+import gmail.dimon0272.WebApp.service.user.UserService;
 import gmail.dimon0272.WebApp.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

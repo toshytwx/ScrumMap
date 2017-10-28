@@ -1,4 +1,4 @@
-package gmail.dimon0272.WebApp.service;
+package gmail.dimon0272.WebApp.service.duty;
 
 
 import gmail.dimon0272.WebApp.model.Duty;

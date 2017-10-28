@@ -1,4 +1,4 @@
-package gmail.dimon0272.WebApp.service;
+package gmail.dimon0272.WebApp.service.security;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

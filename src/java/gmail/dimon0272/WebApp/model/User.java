@@ -1,7 +1,6 @@
 package gmail.dimon0272.WebApp.model;
 
 import gmail.dimon0272.WebApp.dao.DutyDao;
-import gmail.dimon0272.WebApp.service.DutyDaoImpl;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.beans.factory.annotation.Autowired;

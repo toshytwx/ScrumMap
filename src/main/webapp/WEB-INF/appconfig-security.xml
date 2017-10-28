@@ -21,7 +21,7 @@
     </authentication-manager>
 
     <beans:bean id="userDetailsServiceImpl"
-                class="gmail.dimon0272.WebApp.service.UserDetailsServiceImpl"></beans:bean>
+                class="gmail.dimon0272.WebApp.service.user.UserDetailsServiceImpl"></beans:bean>
 
     <beans:bean id="encoder"
                 class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">

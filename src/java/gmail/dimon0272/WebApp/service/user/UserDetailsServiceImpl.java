@@ -1,4 +1,4 @@
-package gmail.dimon0272.WebApp.service;
+package gmail.dimon0272.WebApp.service.user;
 
 import gmail.dimon0272.WebApp.dao.UserDao;
 import gmail.dimon0272.WebApp.model.User;

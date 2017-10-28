@@ -1,7 +1,7 @@
 package gmail.dimon0272.WebApp.actions.user;
 
 import gmail.dimon0272.WebApp.model.User;
-import gmail.dimon0272.WebApp.service.UserService;
+import gmail.dimon0272.WebApp.service.user.UserService;
 
 /**
  * Created by User on 07.03.2017.

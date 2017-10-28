@@ -1,14 +1,12 @@
 package gmail.dimon0272.WebApp.validator;
 
 import gmail.dimon0272.WebApp.model.User;
-import gmail.dimon0272.WebApp.service.UserService;
+import gmail.dimon0272.WebApp.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-
-import javax.jws.soap.SOAPBinding;
 
 
 /**
