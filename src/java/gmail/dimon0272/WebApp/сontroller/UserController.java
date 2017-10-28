@@ -1,5 +1,6 @@
-package gmail.dimon0272.WebApp.Controller;
+package gmail.dimon0272.WebApp.сontroller;
 
+import gmail.dimon0272.WebApp.actions.user.AddUserAction;
 import gmail.dimon0272.WebApp.model.User;
 import gmail.dimon0272.WebApp.service.SecurityService;
 import gmail.dimon0272.WebApp.service.UserService;
@@ -42,7 +43,7 @@ public class UserController {
         if(bindingResult.hasErrors()){
             return "registration";
         }
-        userService.save(userForm);
+        new AddUserAction(userService, userForm).execute();
 
         return "redirect:/login";
     }

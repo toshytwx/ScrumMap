@@ -1,7 +1,9 @@
-package gmail.dimon0272.WebApp.Controller;
+package gmail.dimon0272.WebApp.сontroller;
 
 import gmail.dimon0272.WebApp.actions.duty.AddDutyAction;
-import gmail.dimon0272.WebApp.actions.user.UpdateUserAction;
+import gmail.dimon0272.WebApp.actions.duty.DeleteDutyAction;
+import gmail.dimon0272.WebApp.actions.duty.FindDutyAction;
+import gmail.dimon0272.WebApp.actions.duty.UpdateDutyAction;
 import gmail.dimon0272.WebApp.dao.DutyDao;
 import gmail.dimon0272.WebApp.dao.UserDao;
 import gmail.dimon0272.WebApp.model.Duty;
@@ -11,13 +13,9 @@ import gmail.dimon0272.WebApp.service.SecurityService;
 import gmail.dimon0272.WebApp.service.UserService;
 import gmail.dimon0272.WebApp.tools.DateConverter;
 import gmail.dimon0272.WebApp.tools.DurationConverter;
-import gmail.dimon0272.WebApp.tools.HibernateProxyInitialization;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,7 +62,7 @@ public class DutyController {
                 dutyimportance,
                 dutystatus);
         User user = userService.findByUsername(securityService.findLoggedInUsername());
-        new AddDutyAction(user,duty,dutyDao).execute();
+        new AddDutyAction(user,duty,dutyService).execute();
         List<Duty> dutyList = dutyService.userDutyList(user);
         dutyList.add(duty);
         user.setUserListOfDuties(dutyList);
@@ -79,7 +76,7 @@ public class DutyController {
             if (duty.getDutyStatus().equals("Performs") &&
                     (duty.getDutyStartDate().getTime() + duty.getDutyDurationInMillis()) < new Date().getTime()) {
                 duty.setDutyStatus("Failed");
-                dutyService.updateDuty(duty);
+                new UpdateDutyAction(dutyService, duty).execute();
             }
         }
         model.addAttribute("list", list);
@@ -110,13 +107,13 @@ public class DutyController {
     @RequestMapping(value="/deleteduty", method = RequestMethod.POST)
     public String deleteDuty(Model model, @RequestParam String dutyid){
         Duty dutyToDelete = dutyService.findByDutyId(Long.parseLong(dutyid));
-        dutyService.delete(dutyToDelete);
+        new DeleteDutyAction(dutyService, dutyToDelete).execute();
         return "redirect:/welcome";
     }
 
     @RequestMapping(value = "/details/{dutyid}", method = {RequestMethod.POST, RequestMethod.GET})
     public String getDutyDetails(Model model, @PathVariable(value ="dutyid") Long id){
-        Duty currentDuty = dutyService.findByDutyId(id);
+        Duty currentDuty = new FindDutyAction(dutyService).execute(id);
         model.addAttribute("dutyId", currentDuty.getId());
         model.addAttribute("dutyName",currentDuty.getDutyName());
         model.addAttribute("dutyStartDate",currentDuty.getDateInStringFormat());
@@ -136,14 +133,14 @@ public class DutyController {
                            @RequestParam String dutydescription,
                            @RequestParam String dutyimportance,
                            @RequestParam String dutystatus){
-        Duty dutyToUpgrade = dutyService.findByDutyId(id);
+        Duty dutyToUpgrade = new FindDutyAction(dutyService).execute(id);
         dutyToUpgrade.setDutyDescription(dutydescription);
         dutyToUpgrade.setDutyDurationInMillis(DurationConverter.toDuration(dutyduration).toMillis());
         dutyToUpgrade.setDutyImportance(dutyimportance);
         dutyToUpgrade.setDutyName(dutyname);
         dutyToUpgrade.setDutyStatus(dutystatus);
         dutyToUpgrade.setDutyStartDate(DateConverter.convertStringToDate(dutystartdate));
-        dutyService.updateDuty(dutyToUpgrade);
+        new UpdateDutyAction(dutyService, dutyToUpgrade).execute();
         return "redirect:/welcome";
     }
 
@@ -157,25 +154,25 @@ public class DutyController {
 
     @RequestMapping(value = "/changetodetermining", method = RequestMethod.POST)
     public String changeDutyStatusToDetermining(Model model, @RequestParam String dutyid){
-        Duty dutyToUpgrade = dutyService.findByDutyId(Long.parseLong(dutyid));
+        Duty dutyToUpgrade = new FindDutyAction(dutyService).execute(Long.parseLong(dutyid));
         dutyToUpgrade.setDutyStatus("Determining");
-        dutyService.updateDuty(dutyToUpgrade);
+        new UpdateDutyAction(dutyService, dutyToUpgrade).execute();
         return "redirect:/map";
     }
 
     @RequestMapping(value = "/changetoperform", method = RequestMethod.POST)
     public String changeDutyStatusToPerform(Model model, @RequestParam String dutyid){
-        Duty dutyToUpgrade = dutyService.findByDutyId(Long.parseLong(dutyid));
+        Duty dutyToUpgrade = new FindDutyAction(dutyService).execute(Long.parseLong(dutyid));
         dutyToUpgrade.setDutyStatus("Performs");
-        dutyService.updateDuty(dutyToUpgrade);
+        new UpdateDutyAction(dutyService, dutyToUpgrade).execute();
         return "redirect:/map";
     }
 
     @RequestMapping(value = "/changetodone", method = RequestMethod.POST)
     public String changeDutyStatusToDone(Model model, @RequestParam String dutyid){
-        Duty dutyToUpgrade = dutyService.findByDutyId(Long.parseLong(dutyid));
+        Duty dutyToUpgrade = new FindDutyAction(dutyService).execute(Long.parseLong(dutyid));
         dutyToUpgrade.setDutyStatus("Done");
-        dutyService.updateDuty(dutyToUpgrade);
+        new UpdateDutyAction(dutyService, dutyToUpgrade).execute();
         return "redirect:/map";
     }
 
