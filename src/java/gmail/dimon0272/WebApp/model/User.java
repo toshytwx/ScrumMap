@@ -32,9 +32,21 @@ public class User {
     @OneToMany
     private List<Duty> userListOfDuties = new ArrayList<Duty>();
 
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @OneToMany
+    private List<Call> userListOfCalls = new ArrayList<>();
+
     @Transient
     @Autowired
     DutyDao dutyDao;
+
+    public List<Call> getUserListOfCalls() {
+        return userListOfCalls;
+    }
+
+    public void setUserListOfCalls(List<Call> userListOfCalls) {
+        this.userListOfCalls = userListOfCalls;
+    }
 
     public List<Duty> getUserListOfDuties(User user) {
         return dutyDao.getUserDutyList(user);

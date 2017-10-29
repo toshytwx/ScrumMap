@@ -18,3 +18,12 @@ CREATE TABLE duties(
   FOREIGN KEY (user_id)REFERENCES users(id)
 )
 ENGINE InnoDB;
+
+CREATE TABLE calls(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  phone_number VARCHAR(13) NOT NULL,
+  user_id INT NOT NULL,
+  caller_name VARCHAR(255) NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+)
+ENGINE InnoDB;

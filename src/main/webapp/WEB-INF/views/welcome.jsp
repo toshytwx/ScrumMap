@@ -29,6 +29,7 @@
         </h2>
         <ul class="nav nav-pills">
             <li role="presentation" class="active" data-toggle="modal" data-target="#myModal"><a href="#">Add new Duty</a></li>
+            <li role="presentation" class="active" data-toggle="modal" data-target="#addCall"><a href="#">Add new Call</a></li>
             <li role="presentation"><a href="${contextPath}/progressDuties">Duties in progress</a></li>
             <li role="presentation"><a href="${contextPath}/doneDuties">Done duties</a></li>
             <li role="presentation"><a href="${contextPath}/failedDuties">Failed duties</a></li>
@@ -83,7 +84,25 @@
                         </c:forEach>
                     </table>
                 </div>
-
+        <div class="modal fade" id="addCall" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">New Call</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form  method="POST" action="${contextPath}/addcall" class="form-signin">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
